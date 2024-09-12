@@ -7,10 +7,9 @@ app = FastAPI()
 joblib_in = open("car-recommender.joblib","rb")
 model=joblib.load(joblib_in)
 
-
 @app.get('/')
 def index():
-    return {'message': 'Cars Recommender ML API'}
+    return {'message': 'Cars Recommender ML API Text'}
 
 @app.post('/car/predict')
 def predict_car_type(data:CarUser):

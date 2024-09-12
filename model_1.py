@@ -2,8 +2,16 @@ import pandas as pd # type: ignore
 from sklearn.tree import DecisionTreeClassifier # type: ignore
 import joblib
 
+<<<<<<< HEAD
 cars_data = pd.read_csv('cars.csv')
 
+=======
+
+cars_data = pd.read_csv('cars.csv')
+
+
+
+>>>>>>> eae6ba9ca1849288d6d09601ded469cefc9cd181
 X = cars_data.drop(columns=['vehicle_type']).values # Imput Data
 
 y = cars_data['vehicle_type'] # Output Dat
@@ -24,4 +32,8 @@ model = joblib.load('car-recommender.joblib')
 
 # Make a prediction using the loaded model
 predictions = model.predict([[22, 1]])  
+<<<<<<< HEAD
 print(f"Prediction for input [22, 1]: {predictions[0]}")
+=======
+print(f"Prediction for input [22, 1]: {predictions[0]}")
+>>>>>>> eae6ba9ca1849288d6d09601ded469cefc9cd181

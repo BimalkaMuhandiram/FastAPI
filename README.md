@@ -22,7 +22,7 @@ The **Car Recommender** application predicts a car type based on user input usin
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/YourUsername/YourRepository.git
+   git clone https://github.com/BimalkaMuhandiram/FastAPI.git
    cd YourRepository
    ```
 

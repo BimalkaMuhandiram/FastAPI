@@ -40,3 +40,8 @@ Alternate API file showcasing another endpoint:
 Specifies the Heroku configuration to run the app with Gunicorn:
 ```plaintext
 web: gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
+
+### 6. `requirements.txt`
+Lists all the dependencies required for the project, including:
+
+FastAPI, pydantic, scikit-learn, joblib, and more.

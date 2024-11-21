@@ -1,4 +1,3 @@
-
 # 🚗 FastAPI Car Recommender Application
 
 This repository contains a FastAPI-based machine learning application for recommending car types. The application uses a **Decision Tree Classifier** model to predict car types based on user input features such as **age** and **gender**.

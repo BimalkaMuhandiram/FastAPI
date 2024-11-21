@@ -16,9 +16,8 @@ def index():
 @app.post("/car/predict")
 def predict_car_type(data: CarUser):
     # Extract data from the request
-    data = data.dict()
-    age = data['age']
-    gender = data['gender']
+    age = data.age
+    gender = data.gender
 
     # Perform prediction
     prediction = model.predict([[age, gender]])

@@ -9,46 +9,23 @@ on:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      # Set up Python environment
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.9'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
 
-      # Install dependencies, including pytest
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip  # Ensure pip is updated
-          pip install -r requirements.txt  # Install all dependencies from requirements.txt
-          pip install pytest  # Explicitly install pytest (if not in requirements.txt)
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt  # Install dependencies, including pytest
 
-      # Run tests using pytest
-      - name: Run tests
-        run: |
-          pytest  # Run tests with pytest
-
-      # Build Docker image
-      - name: Build Docker image
-        run: |
-          docker build -t gcr.io/fastapi-442213/fastapi-car-recommender:latest .
-
-      # Push Docker image to Google Container Registry
-      - name: Push Docker image
-        run: |
-          docker push gcr.io/fastapi-442213/fastapi-car-recommender:latest
-
-      # Deploy to Google Cloud Run
-      - name: Deploy to Cloud Run
-        run: |
-          gcloud run deploy fastapi-car-recommender \
-            --image gcr.io/fastapi-442213/fastapi-car-recommender:latest \
-            --platform managed \
-            --region us-central1 \
-            --allow-unauthenticated
+    - name: Run tests with pytest
+      run: |
+        pytest ./tests  # Ensure this is the correct path to your tests

@@ -29,4 +29,5 @@ jobs:
 
     - name: Run tests with pytest
       run: |
+        cd FastAPI  # Change to the correct directory if needed
         pytest ./tests  # Ensure this is the correct path to your tests

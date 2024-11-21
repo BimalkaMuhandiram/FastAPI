@@ -1,3 +1,4 @@
+
 version: '3'
 services:
   core_api:
@@ -9,3 +10,16 @@ services:
       - .:/app  # Mount the current directory inside the container
     environment:
       - PYTHONUNBUFFERED=1  # Ensure log output is not buffered
+
+version: '3'
+services:
+  core_api:
+    build: .
+    container_name: core-api-container
+    ports:
+      - "8000:8000"  # Map host port 8000 to container port 8000
+    volumes:
+      - .:/app  # Mount the current directory inside the container
+    environment:
+      - PYTHONUNBUFFERED=1  # Ensure log output is not buffered
+

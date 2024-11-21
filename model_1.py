@@ -25,3 +25,5 @@ model = joblib.load('car-recommender.joblib')
 # Make a prediction using the loaded model
 predictions = model.predict([[22, 1]])  
 print(f"Prediction for input [22, 1]: {predictions[0]}")
+print(f"Prediction for input [22, 1]: {predictions[0]}")
+

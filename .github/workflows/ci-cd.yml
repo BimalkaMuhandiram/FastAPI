@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline for FastAPI
 
 on:
   push:
@@ -9,23 +9,46 @@ on:
       - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt  # Install dependencies, including pytest
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt  # Install the dependencies listed in requirements.txt
+          pip install pytest               # Install pytest explicitly
 
-    - name: Run tests with pytest
-      run: |
-        pytest ./tests  # Ensure this is the correct path to your tests
+      # Step 4: Run tests with pytest
+      - name: Run tests with pytest
+        run: |
+          pytest ./tests  # Run tests from the 'tests' directory
+
+      # Step 5: Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/fastapi-car-recommender:$GITHUB_SHA .
+
+      # Step 6: Push Docker image to Google Container Registry (GCR)
+      - name: Push Docker image
+        run: |
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/fastapi-car-recommender:$GITHUB_SHA
+
+      # Step 7: Deploy to Google Cloud Run
+      - name: Deploy to Google Cloud Run
+        run: |
+          gcloud run deploy fastapi-car-recommender \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/fastapi-car-recommender:$GITHUB_SHA \
+            --platform managed \
+            --region us-central1 \
+            --allow-unauthenticated

@@ -25,7 +25,7 @@ The **Car Recommender** application predicts car types based on user inputs (e.g
 
 ### 1. Clone the Repository:
 ```bash
-git clone https://github.com/YourGitHubUsername/FastAPI.git
+git clone https://github.com/BimalkaMuhandiram/FastAPI.git
 cd FastAPI
 ```
 

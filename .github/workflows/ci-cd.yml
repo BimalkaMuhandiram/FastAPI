@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # or 'windows-latest' based on your environment
+    runs-on: windows-latest  # or 'windows-latest' based on your environment
 
     steps:
     # Checkout code
@@ -28,6 +28,10 @@ jobs:
       run: |
         pip install -r requirements.txt  # install from requirements.txt
         pip install httpx  # explicitly install httpx if not in requirements.txt
+
+    # Set PYTHONPATH environment variable to the root of the repo
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV  # Set the Python path to the repo root
 
     # Run tests
     - name: Run tests

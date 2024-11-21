@@ -3,11 +3,11 @@ name: Run Tests
 on:
   push:
     branches:
-      - main
+      - main  # Trigger on pushes to the main branch
 
 jobs:
   test:
-    runs-on: windows-latest 
+    runs-on: windows-latest  # Use a Windows-based runner
     steps:
     - name: Check out code
       uses: actions/checkout@v2
@@ -18,13 +18,13 @@ jobs:
         python-version: '3.9'
 
     - name: Set PYTHONPATH
-      run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV 
+      run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV  # Set PYTHONPATH to the root of the repository
 
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-        pip install httpx  
+        pip install httpx  # Ensure httpx is installed, as it's required for FastAPI testing
 
     - name: Run tests
       run: |
-        pytest --maxfail=1 --disable-warnings -q  
+        pytest --maxfail=1 --disable-warnings -q  # Run tests with maxfail=1 and disable warnings

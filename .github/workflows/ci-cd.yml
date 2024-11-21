@@ -1,39 +1,30 @@
-name: CI/CD Pipeline
+name: Run Tests
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   test:
-    runs-on: windows-latest  # or 'windows-latest' based on your environment
-
+    runs-on: windows-latest  # You can change this to 'windows-latest' if you're using Windows
     steps:
-    # Checkout code
-    - name: Checkout code
+    - name: Check out code
       uses: actions/checkout@v2
 
-    # Set up Python environment
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.9'  # specify the Python version
+        python-version: '3.9'
 
-    # Install dependencies
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV  # Set PYTHONPATH to the root directory of the repo
+
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt  # install from requirements.txt
-        pip install httpx  # explicitly install httpx if not in requirements.txt
+        pip install -r requirements.txt
+        pip install httpx  # Explicitly install httpx if it's not in the requirements.txt
 
-    # Set PYTHONPATH environment variable to the root of the repo
-    - name: Set PYTHONPATH
-      run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV  # Set the Python path to the repo root
-
-    # Run tests
     - name: Run tests
       run: |
-        pytest --maxfail=1 --disable-warnings -q  # run tests with maxfail=1 and disable warnings
+        pytest --maxfail=1 --disable-warnings -q  # Run tests with maxfail=1 and disable warnings

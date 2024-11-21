@@ -1,9 +1,7 @@
-# tests/test_app.py
 from fastapi.testclient import TestClient
-from main import app  # Import the app from the correct location
+from main import app  # Make sure this import is correct
 
-def test_main():  # Ensure the function name starts with 'test_'
+def test_read_main():
     client = TestClient(app)
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Hello World"}

@@ -160,7 +160,6 @@ The application provides interactive API documentation using Swagger UI. Here's 
 ### Deployment Failures:
 - Ensure that the Docker image is built successfully and pushed to Google Container Registry.
 - Check the Cloud Run logs for errors related to container start or service initialization.
-
 ### CI/CD Pipeline Errors:
 - Check the logs in GitHub Actions to identify any issues in the build, test, or deploy steps.
 - Verify that all secrets (e.g., `GCP_CREDENTIALS_JSON`) are correctly set in the GitHub repository's Secrets settings.

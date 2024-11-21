@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: windows-latest  # Ensure you're using Windows-based runner
+    runs-on: windows-latest 
     steps:
     - name: Check out code
       uses: actions/checkout@v2
@@ -18,13 +18,13 @@ jobs:
         python-version: '3.9'
 
     - name: Set PYTHONPATH
-      run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV  # Sets PYTHONPATH to the root of the repository
+      run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV 
 
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-        pip install httpx  # Ensure httpx is installed if not in requirements.txt
+        pip install httpx  
 
     - name: Run tests
       run: |
-        pytest --maxfail=1 --disable-warnings -q  # Run tests with maxfail=1 and disable warnings
+        pytest --maxfail=1 --disable-warnings -q  

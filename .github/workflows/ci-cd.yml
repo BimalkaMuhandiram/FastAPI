@@ -18,7 +18,7 @@ jobs:
         python-version: '3.9'
 
     - name: Set PYTHONPATH
-      run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV  # This sets PYTHONPATH to the root directory
+      run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV  # Sets PYTHONPATH to the root of the repository
 
     - name: Install dependencies
       run: |

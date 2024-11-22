@@ -1,30 +1,29 @@
-name: Run Tests
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main  # Trigger on pushes to the main branch
+      - main
+  pull_request:
 
 jobs:
   test:
-    runs-on: windows-latest  # Use a Windows-based runner
+    runs-on: ubuntu-latest
+
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: '3.9'
 
-    - name: Set PYTHONPATH
-      run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV  # Set PYTHONPATH to the root of the repository
-
     - name: Install dependencies
       run: |
+        python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install httpx  # Ensure httpx is installed, as it's required for FastAPI testing
 
     - name: Run tests
       run: |
-        pytest --maxfail=1 --disable-warnings -q  # Run tests with maxfail=1 and disable warnings
+        pytest --maxfail=1 --disable-warnings --tb=short

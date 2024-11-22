@@ -1,7 +1,13 @@
 from fastapi.testclient import TestClient
-from main import app  # Make sure this import is correct
+from app import app
+from unittest.mock import patch
+import pytest
 
-def test_read_main():
-    client = TestClient(app)
-    response = client.get("/")
-    assert response.status_code == 200
+client = TestClient(app)
+
+def test_predict_car_type():
+    mock_prediction = ["Supercar"]
+    with patch("app.model.predict", return_value=mock_prediction):
+        response = client.post("/car/predict", json={"age": 21, "gender": 1})
+        assert response.status_code == 200
+        assert response.json() == {"prediction": "Supercar"}
